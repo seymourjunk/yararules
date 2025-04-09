@@ -53,7 +53,10 @@ rule TrapFlag
         descriptions = "Setting TF for debugger detect (see exception handling)"
         notes = "for x86 only"
     strings:
-        $op = {9c 81 0c 24 00 01 00 00 9d 90}
+        $op = {9c 81 0c 24 00 01 00 00 9d 90}   // pushfd
+                                                // mov dword ptr [esp], 0x100
+                                                // popfd
+                                                // nop
     condition:
         any of them
 }
