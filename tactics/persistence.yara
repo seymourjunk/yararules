@@ -3,22 +3,22 @@ rule LogonAutostart
     meta:
         description = "Adding a program to a logon initialization"
     strings:
-        $reg1 = "System\\CurrentControlSet\\Control\\Session Manager"   // BootExecute
-        $reg2 = "Software\\Microsoft\\Windows\\CurrentVersion\\RunServices" nocase
-        $reg3 = "Software\\Microsoft\\Windows\\CurrentVersion\\RunServicesOnce" nocase
-        $reg4 = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon" nocase  // UserInit, Shell (explorer.exe)
+        $reg1 = "System\\CurrentControlSet\\Control\\Session Manager" wide ascii nocase  // BootExecute
+        $reg2 = "Software\\Microsoft\\Windows\\CurrentVersion\\RunServices" wide ascii nocase
+        $reg3 = "Software\\Microsoft\\Windows\\CurrentVersion\\RunServicesOnce" wide ascii nocase
+        $reg4 = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon" wide ascii nocase  // UserInit, Shell (explorer.exe)
 
-        $reg5 = "Software\\Microsoft\\Windows\\CurrentVersion\\Run" nocase
-        $reg6 = "Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce" nocase
-        $reg7 = "Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Run" nocase
-        $reg8 = "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders" nocase
-        $reg9 = "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" nocase
+        $reg5 = "Software\\Microsoft\\Windows\\CurrentVersion\\Run" wide ascii nocase
+        $reg6 = "Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce" wide ascii nocase
+        $reg7 = "Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Run" wide ascii nocase
+        $reg8 = "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders" wide ascii nocase
+        $reg9 = "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders" wide ascii nocase
 
-        $reg10 = "Software\\Microsoft\\Windows\\CurrentVersion\\RunServicesOnce" nocase
-        $reg11 = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run" nocase
-        $reg12 = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows" nocase
+        $reg10 = "Software\\Microsoft\\Windows\\CurrentVersion\\RunServicesOnce" wide ascii nocase
+        $reg11 = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run" wide ascii nocase
+        $reg12 = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows" wide ascii nocase
     condition:
-        any of them
+        any of them // will trigger even legitimate software installer, other criteria need to be clarified
 }
 
 rule RegistryExplorer
